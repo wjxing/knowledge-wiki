@@ -22,12 +22,12 @@
 			<div class="unit-inner unit-head-inner">
 				<nav class="nav-global">
 					<ul>
-						<li class="logo"><a href="/">{{ site.title }}</a></li>
+						<li class="logo"><a href="{{ BASE_PATH }}/">{{ site.title }}</a></li>
                         <li class="archive"><a href="{{ BASE_PATH }}/archive.html">archive</a></li>
-						<li class="category"><a href="/categories.html">categories</a></li>
-						<li class="page"><a href="/pages.html">pages</a></li>
-						<li class="tag"><a href="/tags.html">tags</a></li>
-						<li class="about"><a href="/about.html">about</a></li>
+						<li class="category"><a href="{{ BASE_PATH }}/categories.html">categories</a></li>
+						<li class="page"><a href="{{ BASE_PATH }}/pages.html">pages</a></li>
+						<li class="tag"><a href="{{ BASE_PATH }}/tags.html">tags</a></li>
+						<li class="about"><a href="{{ BASE_PATH }}/about.html">about</a></li>
 						<li class="search">
 						    <form method="get" action="http://www.google.com/search" target="google_window">
 						    <div>	
@@ -59,7 +59,7 @@
 			<div class="unit-inner unit-foot-inner">
 				<div class="misc vcard">
 					<ul>
-						<li><a href="/atom.xml">RSS</a></li>
+						<li><a href="{{ BASE_PATH }}/atom.xml">RSS</a></li>
 					</ul>
 				</div><!-- misc -->
                 <p class="licence">&copy; {{ site.author.name }} 2014 with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and template from <a href="http://equation85.github.io/">Equation85
