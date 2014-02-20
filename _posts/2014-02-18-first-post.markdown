@@ -16,9 +16,9 @@ tags: [introduce]
 * 这个jekyll模板来自[equation85][1]
 * 由于我想基于`http://username.github.io/project`的basepath来搭建，所以修改了一下default.html中的路径，参考[提交1][2]和[提交2][3]
 * 在本地使用rvm安装jekyll的时候，遇到了这个命令
-```
-bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-```
+
+    bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+
 纠结了半天来理解这条命令：
 
 解析：**bash -s stable < <(command)**
@@ -30,9 +30,8 @@ bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscr
 **<** : 这里表示把中间文件当作bash的标准输入
 
 亦可以这么执行[@rvm][4]：
-```
-curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
-```
+
+    curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
 
 [1]:http://equation85.github.io
 [2]:https://github.com/wjxing/knowledge-wiki/commit/a763abcc3c2d5fa2dfd266fe99191bfaa05a62c9
