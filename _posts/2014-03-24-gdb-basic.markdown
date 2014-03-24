@@ -1,0 +1,49 @@
+---
+layout: post
+title: "GDB basic"
+date: 2014-03-24 09:45
+category: "GDB"
+tags: gdb
+---
+{% include JB/setup %}
+
+gdb basic
+
+------
+
+## 基本命令与用法（未完）
+
+### 1. tty命令
+可以把调试程序的输出定向到其他终端
+A. 启动新的终端输入tty，可以查看对应的设备文件，假设是/dev/pts/7
+B. 在gdb窗口输入tty /dev/pts/7，然后程序的输出就可以定向到步骤A启动的终端中
+
+## 动态内存检查工具
+
+### 1. efence调试工具
+有2个主要的功能：
+1. 内存越界读写时抛出segmentation fault：当程序用malloc申请内存时，Efence会使用虚拟内存技术将分配的内存空间之后的内存页面设置为inaccessible(不可读写和执行)，所以当程序发生越界读写时，OS会发出SIGSEGV信号，生成core文件(core dump)，进程退出
+2. 当访问已经被释放的内存空间时抛出segmentation fault：当程序把一块空间free之后，Efence同样把这块内存的访问保护级别设置为inaccessible，所以当程序再次访问这块已经释放的内存时也会导致segmentation fault
+
+### 2. MALLOC\_CHECK\_
+GNU的标准库(glibc)可以通过内置的调试特性对动态内存进行调试,它就是MALLOC\_CHECK\_环境变量
+MALLOC\_CHECK\_有三种设定,即:
+MALLOC\_CHECK\_=0 ----- 关闭所有检查
+MALLOC\_CHECK\_=1 ----- 当有错误被探测到时,在标准错误输出(stderr)上打印错误信息
+MALLOC\_CHECK\_=2 ----- 当有错误被探测到时,不显示错误信息,直接进行中断
+
+### 3. mcheck
+
+### 4. mtrace
+mtrace的主要作用是查找内存泄露,为了应用mtrace程序,必须在代码中使用glibc提供的函数mtrace和muntrace,
+另外,必须设置一个文件的名字给环境变量MALLOC\_TRACE,因为glibc利用它为mtrace程序存储数据,
+当执行完代码后,数据将会存在这个确认的文件中,每执行一次程序,这个文件的内容都会被重写
+
+
+## 其他工具
+
+### 1. strace
+输出系统调用
+
+### 2. ltrace
+输出库函数调用
