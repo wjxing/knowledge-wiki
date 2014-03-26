@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Schedule"
+date: 2014-03-26 12:36
+category: Schedule
+tags: schedule
+---
+{% include JB/setup %}
+
+列一下想要去学习的知识或者是工具、程序库等
+
+------
+
+## 知识
+
+* Linux Kernel
+* Linux Driver
+* Android Graphics(WMS, SurfaceFlinger, Gralloc)
+
+## 程序库
+
+* OpenMP
+* FTK
