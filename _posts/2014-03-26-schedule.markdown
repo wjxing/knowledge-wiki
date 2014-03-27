@@ -21,3 +21,7 @@ tags: schedule
 
 * OpenMP
 * FTK
+
+## Android
+
+* Genymotion
