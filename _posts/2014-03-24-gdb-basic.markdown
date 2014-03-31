@@ -47,3 +47,6 @@ mtrace的主要作用是查找内存泄露,为了应用mtrace程序,必须在代
 
 ### 2. ltrace
 输出库函数调用
+
+### 3. dissy
+Linux平台下的objdump前端
