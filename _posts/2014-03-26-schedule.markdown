@@ -16,6 +16,7 @@ tags: schedule
 * Linux Kernel
 * Linux Driver
 * Android Graphics(WMS, SurfaceFlinger, Gralloc)
+* Lisp
 
 ## 程序库
 
@@ -25,3 +26,7 @@ tags: schedule
 ## Android
 
 * Genymotion
+
+## 工具
+
+* VIM/Emacs
