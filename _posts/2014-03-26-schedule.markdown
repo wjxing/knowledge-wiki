@@ -7,30 +7,33 @@ tags: schedule
 ---
 {% include JB/setup %}
 
-列一下想要去学习的知识或者是工具、程序库等
+列一下想要去学习的知识或者是工具、程序库等（优先级-5~5）
 
 ------
 
 ## 知识
 
-* Linux Kernel
-* Linux Driver
-* Android Graphics(WMS, SurfaceFlinger, Gralloc)
-* Lisp
-
-## 程序库
-
-* OpenMP
-* FTK
-* PThread
-* socket
-* ptrace
+* Linux Kernel(-5)
+* Linux Driver(-5)
+* Lisp(-3)
 
 ## Android
 
-* Genymotion
-* AccountManager, SyncManager
+* Genymotion(0)
+* AccountManager, SyncManager(-4)
+* Graphics(WMS, SurfaceFlinger, Gralloc)(-3)
 
 ## 工具
 
-* VIM/Emacs
+* VIM(-2)
+* Emacs(-3)
+
+## 程序库
+
+* OpenMP(0)
+* FTK(0)
+* PThread(-1)
+* socket(-1)
+* ptrace(-1)
+
+## 拓展眼界
