@@ -29,6 +29,7 @@ tags: schedule
 ## Android
 
 * Genymotion
+* AccountManager, SyncManager
 
 ## 工具
 
