@@ -56,7 +56,7 @@ tags: [vim]
 
     iabbrev <buffer> --- &mdash;
 
-当在当前buffer中输入---然后按空格后会被&mdash;代替
+当在当前buffer中输入`---`然后按空格后会被`&mdash;`代替
 
 ### 6. Autocommands and Abbreviations
 
