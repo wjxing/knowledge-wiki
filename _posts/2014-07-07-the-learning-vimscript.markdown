@@ -286,3 +286,112 @@ execute可以编程式的构建执行的命令，并且弥补了normal!不能执
 在自己的插件中编写函数时，最好使用**function! s:GrepOperator**这样的形式来定义本地化的函数，而不是定义一个全局的函数，那么在使用的时候可以这样调用：
 
     call <SID>GrepOperator()
+
+### 30. List
+
+    echo ['foo', [3, 'bar']]
+
+**List**可以嵌套
+
+    echo [0, [1, 2]][-2]
+
+**List**可以索引，-1表示最后一个元素，依此类推
+
+    echo [0, 1, 2, 3][1:]
+
+**List**可以取范围，并且是可以单向范围
+
+    echo "abcd"[-1]  "空
+    echo "abcd"[-1:] "d
+
+字符串也可以取索引，只不过如果单单是一个数字索引，返回的是空
+
+    echo ['a', 'b'] + ['c']
+
+**List**可以连接
+
+### 31. List Functions
+
+    let foo = ['a']
+    add(foo, 'b')
+    echo foo        "['a', 'b']
+
+**add**函数
+
+    echo get(foo, 0, 'default')   "a
+    echo get(foo, 100, 'default') "default
+
+**get**函数
+
+    echo index(foo, 'b')    "1
+    echo index(foo, 'nope') "-1
+
+**index**函数
+
+    echo join(foo)           "a b
+    echo join(foo, '---')    "a---b
+    echo join([1, 2, 3], '') "123
+
+**join**函数
+
+    call reverse(foo)
+    echo foo          "['b', 'a']
+
+**reverse**函数
+
+### 32. For Loops
+
+    for i in list
+    endfor
+
+**for**循环能够变量**list**或者**dictionary**
+
+### 33. While Loops
+
+    while c <= 4
+    endwhile
+
+**while**循环
+
+### 34. Dictionaries
+
+    echo {'a': 1, 100: 'foo',} "{'a': 1, '100': 'foo'}
+
+**Dictionaries**强制把key转换成string
+
+    echo {'a': 1, 100: 'foo',}['a']
+    echo {'a': 1, 100: 'foo',}[100]
+    echo {'a': 1, 100: 'foo',}.a
+    echo {'a': 1, 100: 'foo',}.100
+
+**Dictionaries**索引
+
+    let foo = {'a': 1}
+    let foo.a = 100
+    let foo.b = 200
+    echo foo           "{'a': 100, 'b': 200}
+
+**Dictionaries**赋值和添加可以使用相同的方式
+
+    let test = remove(foo, 'a')
+    unlet foo.b
+    echo foo                    "{}
+    echo test                   "100
+
+**Dictionaries**有两种方式删除成员，remove会返回删除的value
+
+### 35. Dictionary Functions
+
+    echom get({'a': 100}, 'a', 'default') "100
+    echom get({'a': 100}, 'b', 'default') "default
+
+**get**函数
+
+    echom has_key({'a': 100}, 'a') "1
+    echom has_key({'a': 100}, 'b') "0
+
+**has_key**函数
+
+    echo items({'a': 100, 'b': 200}) "[['a', 100], ['b', 200]]
+
+**items**函数
