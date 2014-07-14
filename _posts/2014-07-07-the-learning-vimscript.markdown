@@ -395,3 +395,104 @@ execute可以编程式的构建执行的命令，并且弥补了normal!不能执
     echo items({'a': 100, 'b': 200}) "[['a', 100], ['b', 200]]
 
 **items**函数
+
+### 36. Move to Window
+
+    echo winnr([{arg}])
+
+如果不加参数，返回当前**Window**的编号，参数是**'$'**时，返回最后一个**Window**的编号，也即窗口的数量，参数是**'#'**时，返回上一次访问的**Window**的编号
+
+    [count]winc[md] {arg}
+
+相当于执行CTRL-W [count] {arg}，其中count表示从左上到右下排序的窗口的编号，当参数是w时，表示跳转到对应编号的窗口
+
+### 37. Functions as Variables
+
+    let MyFunc = function("append")
+    echo MyFunc([1, 2], 3)                            "[1, 2, 3]
+    let funcs = [function("append"), function("pop")]
+    echo funcs[1]([1, 2, 3], 1)                       "[1, 3]
+
+变量可以作为函数的引用，这时变量名必须大写。函数引用也可以作为**List**成员，这时变量名称不用必须大写
+
+    function! Mapped(fn, l)
+        let new_list = deepcopy(a:l)
+        call map(new_list, string(a:fn) . '(v:val)')
+        return new_list
+    endfunction
+    let mylist = [[1, 2], [3, 4]]
+    echo Mapped(function("Reversed"), mylist)        "[[2, 1], [4, 3]]
+
+**map**函数形如：map({expr}, {string})
+**{expr}**是**List**或者**Dictionary**，使用**{string}**替换**{expr}**中的每一项。在**{string}**中v:val表示当前项的value，对于**Dictionary**，v:key表示当前项的key，而对于**List**，v:key表示当前项的索引。
+
+    call map(mylist, '"> " . v:val . " <"')
+
+在mylist中的每一项头部添加"> "，尾部添加" <"字符串。
+**{string}**是一个表达式的结果，然后又会把这个结果再作为一个表达式
+
+### 38. Absolute Paths
+
+    echo expand('%')
+
+**%**表示当前文件的相对路径
+
+    echo expand('%:p')
+
+**%:p**表示当前文件的绝对路径
+
+    echom fnamemodify('foo.txt', ':p')
+
+获取foo.txt在当前目录下的绝对路径，不管foo.txt是否存在
+
+### 39. Listing Files
+
+    echo globpath('.', '*')
+
+显示当前目录下文件
+
+    echo split(globpath('.', '*.txt'), '\n')
+
+可以使用通配符
+
+    echo split(globpath('.', '**'), '\n')
+
+递归显示当前目录文件
+
+### 40. Basic Layout
+
+    ~/.vim/colors/
+
+这个目录下包含了配色方案，如果运行了**color mycolors**，那么**~/.vim/color/mycolors.vim**会被执行。这个文件应该包含所有生成配色方案的vimscript命令
+
+    ~/.vim/plugin/
+
+这个目录文件在每次运行vim时都会执行
+
+    ~/.vim/ftdetect/
+
+这个目录文件在每次运行vim时都会执行，这个目录中文件应该设置自动执行命令。这些命令检查和设置文件的**filetype**，其它不应该做。这就意味着这个文件的内容最多一两行
+
+    ~/.vim/ftplugin/
+
+当设置**filetype**时，这个目录下相应的文件会被执行，比如执行**set filetype=derp**，那么vim会去查找和执行**~/.vim/ftplugin/derp.vim**或者**~/.vim/ftplugin/derp/**目录下的**\*.vim**文件。因为这些文件是在设置**buffer**的**filetype**时被执行的，所以它们只应该设置**buffer-local options**
+
+    ~/.vim/indent/
+
+类似于ftplugin下的文件。加载时也是只加载名字对应的文件。indent文件应该设置跟对应文件类型相关的缩进，而且这些设置应该是**buffer-local**的
+
+    ~/.vim/compiler/
+
+类似于indent文件。它们应该设置同类型名的当前缓冲区下的编译器相关选项
+
+    ~/.vim/after/
+
+这个文件夹下的文件会在每次Vim启动的时候加载， 不过是在**~/.vim/plugin/**下的文件加载了之后
+
+    ~/.vim/autoload/
+
+**autoload**是一种延迟插件代码到需要时才加载的方法
+
+    ~/.vim/doc/
+
+放置插件文档的地方
