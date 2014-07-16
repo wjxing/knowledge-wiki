@@ -496,3 +496,114 @@ execute可以编程式的构建执行的命令，并且弥补了normal!不能执
     ~/.vim/doc/
 
 放置插件文档的地方
+
+### 41. Highlighting Keywords
+
+    syntax keyword potionKeyword to times
+    highlight link potionKeyword Keyword
+
+第一行把to和times定义为potionKeyword关键字分组，第二行把这个分组和**Keyword**高亮分组链接在一起，这时to和times就具有了**Keyword**高亮效果。potionKeyword可以自定义，但要保持**syntax**和**highlight**匹配
+
+    syntax keyword potionKeyword to times
+    syntax keyword potionKeyword if elsif else
+    syntax keyword potionKeyword class retur
+    highlight link potionKeyword Keyword
+
+可以把关键字定义扩展到多行
+
+### 42. Highlighting Functions
+
+    syntax keyword potionFunction print join string
+    highlight link potionFunction Function
+
+高亮函数
+
+### 43. Highlighting Comments
+
+    syntax match potionComment "\v#.*$"
+    highlight link potionComment Comment
+
+可以使用正则表达式来匹配要高亮的内容
+
+### 44. Highlighting Operators
+
+    syntax match potionOperator "\v\*"
+    syntax match potionOperator "\v\*\="
+
+后面的语句具有更高优先级，假如颠倒上面两句的顺序，如果存在**\*=**，则**\***先被匹配，之后的**=**就不能被匹配，因为每个组"消耗"的文本片段在之后不能被匹配到
+
+    syntax match potionOperator "\v\*\=?"
+
+也可以合并成一句
+
+### 45. Highlighting Strings
+
+    syntax region potionString start=/\v"/ skip=/\v\\./ end=/\v"/
+    highlight link potionString String
+
+使用**region**来划分一个匹配的范围，用**start**来表示起始位置，用**end**来表示结束位置，用**skip**来允许忽略转义字符串，来表示一旦匹配开始，会忽略**skip**匹配的内容，即使是作为区域结束的标志
+
+### 46. Indent Folding
+
+    setlocal foldmethod=indent
+    setlocal foldignore=
+
+在设置**indent**的折叠方式时，会忽略以**#**字符开头的行，可以设置**foldignore**来避免。**za**切换打开/关闭当前折叠，**zm**关闭最内层折叠，可以连续按，由内向外依次关闭折叠，**zM**关闭所有折叠，**zr**打开最外层折叠，可以联系按，由外向内依次打开折叠，**zR**打开所有折叠
+
+### 47. Folding Theory
+
+文件中的每行代码都有一个"foldlevel"。它不是为零就是一个正整数
+foldlevel为零的行不会被折叠
+有同等级的相邻行会被折叠到一起
+如果一个等级X的折叠被关闭了，任何在里面的、foldlevel不小于X的行都会一起被折叠，直到有一行的等级小于X
+
+### 48. Expr Folding
+
+    setlocal foldmethod=expr
+    setlocal foldexpr=GetPotionFold(v:lnum)
+
+    function! GetPotionFold(lnum)
+        if getline(a:lnum) =~? '\v^\s*$'
+            return '-1'
+        endif
+
+        return '0'
+    endfunction
+
+第一行告诉vim使用**expr**折叠，第二行定义了vim用来计算每一行的foldlevel的表达式，当vim执行某个表达式，它会设置v:lnum为它需要的对应行的行号。**=~?**表示不区分大小写匹配
+自定义的表达式可以直接返回一个foldlevel，或者返回一个"特殊字符串"来告诉Vim如何折叠这一行，**-1**就是其中一种，它告知vim，这一行的foldlevel为"undefined"，vim将把它理解为"该行的foldlevel等于其上一行或下一行的较小的那个foldlevel"
+vim可以把undefined的行串在一起，所以假设有三个undefined的行和接下来的一个level1的行，它将设置最后一行为1,接着是倒数第二行为1,然后是第一行为1
+从折叠表达式中返回的，类似**>1**的字符串表示vim的特殊foldlevel中的一种，它告诉vim当前行需要展开一个给定level的折叠
+
+    echo indent(lnum)
+
+函数**indent**返回**lnum**对应行的缩进大小
+
+    echo &shiftwidth
+
+选项**shiftwidth**表示缩进使用的空格数
+
+    echo line('$')
+
+函数**line**得到当前文件的总行数
+
+### 49. Beginning of File
+
+vim使用特殊的正则表达式**%^**表示文件开头
+
+### 50. Search Flags
+
+    /pattern/e
+
+vim使用**e**标记使得匹配的时候把光标移动到匹配的结束处
+当用**:**执行一个**ex**模式下的命令，可视选择的范围总会被清空。**gv**命令重新选择之前的可视选择范围，相当于撤销了清空
+
+### 51. Bang!
+
+    :! ls
+
+**:!**用来执行外部命令，并提示"请按 ENTER 或其它命令继续"
+
+    :silent !ls
+
+可以避免提示"请按 ENTER 或其它命令继续"
