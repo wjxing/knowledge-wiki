@@ -20,12 +20,11 @@ tags: schedule
 ## Android
 
 * Genymotion(0)
-* AccountManager, SyncManager(-4)
-* Graphics(WMS, SurfaceFlinger, Gralloc)(-3)
+* Graphics(WMS, SurfaceFlinger, Gralloc)(-2)
 
 ## 工具
 
-* VIM(-2)
+* VIM(-4)
 * Emacs(-3)
 
 ## 程序库
