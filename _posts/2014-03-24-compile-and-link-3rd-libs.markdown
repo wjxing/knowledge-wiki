@@ -51,3 +51,23 @@ tags: Compile Link
 
 * 把头文件和库文件拷贝到特定的目录下，并且在/usr/lib/pkgconfig目录下创建.pc文件
 * 在/etc/ld.so.conf.d/目录下增加.conf文件，以指定动态库的路径
+
+------
+
+今天想在服务器上编译tmux，但执行configure的时候提示缺少libevent，于是按照以下步骤做了，
+并且是不干扰系统的环境，只在当前用户的环境中
+
+### 1. 下载libevent源代码，并以静态库方式编译
+
+    ./configure --enable-static --disable-shared --prefix=/USER/FOLDER/libevent
+    make & make install
+
+编译完了以后会在当前目录下生成libevent.pc文件
+
+### 2. 下载tmux源代码
+
+    PKG_CONFIG_PATH=/PATH/TO/LIBEVENT/FOLDER ./configure --enable-staic --prefix=/USER/FOLDER/tmux
+    make & make install
+
+PKG\_CONFIG\_PATH环境变量用来指定**附加的**搜索pc文件的路径，如此编译完了以后只在/USER/FOLDER产生编译安装后的结果，
+不会安装到系统中去
