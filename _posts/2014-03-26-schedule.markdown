@@ -21,6 +21,10 @@ tags: schedule
 
 * Genymotion(0)
 * Graphics(WMS, SurfaceFlinger, Gralloc)(-2)
+* Opengl(-5)
+* Web(-5)
+
+## Web
 
 ## 工具
 
