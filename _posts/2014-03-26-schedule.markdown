@@ -13,30 +13,30 @@ tags: schedule
 
 ## 知识
 
-* Linux Kernel(-5)
-* Linux Driver(-5)
-* Lisp(-3)
+* Linux Kernel(-4)
+* Opengl(-5)
+* English(-3)
+* Lisp(0)
 
 ## Android
 
-* Genymotion(0)
+* Genymotion(5)
 * Graphics(WMS, SurfaceFlinger, Gralloc)(-2)
-* Opengl(-5)
-* Web(-5)
+* Web(5)
 
 ## Web
 
 ## 工具
 
-* VIM(-4)
-* Emacs(-3)
+* VIM(0)
+* Emacs(0)
 
 ## 程序库
 
-* OpenMP(0)
-* FTK(0)
-* PThread(-1)
-* socket(-1)
-* ptrace(-1)
+* OpenMP(5)
+* FTK(5)
+* PThread(-3)
+* socket(-3)
+* ptrace(-3)
 
 ## 拓展眼界
