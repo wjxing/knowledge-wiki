@@ -2,8 +2,8 @@
 layout: post
 title: "Git Usage"
 date: 2015-03-25 9:03
-category: Android
-tags: android tools
+category: Git
+tags: git tools
 ---
 {% include JB/setup %}
 
@@ -23,7 +23,9 @@ Git Usage
 
 ### 4. git diff
 查看当前文件和暂存区域的差别（也就是修改之后还没有暂存起来的变化内容）
+
 git diff --staged
+
 查看已经暂存起来的文件和上次提交快照之间的差异
 
 ### 5. git ignore
