@@ -45,6 +45,7 @@ PS: 以下代码疑问？
     }
 
 输出：
+
     1. static_cast from base to child
         IInterface
         5
