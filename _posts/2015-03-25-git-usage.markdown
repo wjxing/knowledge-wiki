@@ -1,0 +1,132 @@
+---
+layout: post
+title: "Git Usage"
+date: 2015-03-25 9:03
+category: Android
+tags: android tools
+---
+{% include JB/setup %}
+
+Git Usage
+
+------
+
+### 1. git config --list
+
+### 2. add alias in ~/.gitconfig
+    [alias]
+        log-a = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cN - %cr)%Creset' --abbrev-commit --date=relative
+        diff-a = diff --name-status
+
+### 3. git log --abbrev-commit
+缩短的commit SHA-1 ID
+
+### 4. git diff
+查看当前文件和暂存区域的差别（也就是修改之后还没有暂存起来的变化内容）
+
+git diff --staged
+
+查看已经暂存起来的文件和上次提交快照之间的差异
+
+### 5. git ignore
+使用glob模式匹配
+
+匹配模式最后跟斜杠说明要忽略的是目录
+
+要忽略指定模式以外的文件或目录，可以在模式前加惊叹号取反
+
+### 6. git commint -a -m ""
+跳过暂存操作，即跳过git add步骤
+
+### 7. git rm -f
+如果删除之前修改过并且已经放到暂存区的话，则必须要用强制删除选项-f
+
+git rm --cached
+
+
+把文件从git仓库中删除，但仍然希望保留在当前工作目录中
+
+git rm log/\*.log //不让shell展开*，但效果同下面
+
+git rm log/*.log
+
+删除log目录下的以.log结尾的文件
+
+git rm \*.log
+
+递归删除目录下的以.log结尾的文件
+
+### 8. git log
+-p 按补丁格式显示每个更新之间差异
+
+--stat 显示每次更新文件修改统计信息
+
+--shortstat 只显示--stat中最后的行数修改添加移除统计
+
+--name-only 仅在提交信息后显示已修改的文件清单
+
+--name-status 显示新增、修改、删除的文件清单
+
+--abbrev-commit 仅显示SHA-1的前几个字符
+
+--relative-date 使用较短的相对时间显示
+
+--graph 显示ASCII图形表示的分支合并历史
+
+git log --merges branch ^other_branch // 显示branch包含的，但other_branch不包含的log
+
+### 9. 限制git log输出长度
+--since=2,week（也可以是具体某天2012-12-30） / --until=
+
+10. git branch -v
+查看各分支最后一次提交
+
+git branch --merged
+
+查看已经merged到本分支的分支列表，可以删除列出来的分支，因为已经merged
+
+git branch --no-merged
+
+查看还没有merged到本分支的分支列表，如果要删除这些分支，需要强制删除git branch -D
+
+### 11. 查看分支指向的SHA
+git rev-parse master
+
+### 12. 查看几个月内HEAD和分支引用的日志
+git reflog
+
+每次分支顶端因为某些原因被修改时，git就会将信息保存在这个临时历史记录里面
+
+git show HEAD@{5}
+
+git show master@{yesterday}
+
+git show HEAD@{2.months.ago}
+
+想要看类似于git log输出格式的引用日志信息，可以运行
+
+git log -g master
+
+### 13. HEAD的父提交
+git show HEAD^
+
+HEAD的第二父提交
+
+git show HEAD^2
+
+第一父提交是合并时所在分支,而第二父提交是所合并的分支
+
+### 14. 创建空branch，并上传到服务器
+git symbolic-ref HEAD refs/heads/newbranch
+
+rm .git/index
+
+git clean -fdx
+
+<do work>
+
+git add your files
+
+git commit -m 'Initial commit'
+
+git push origin HEAD:refs/heads/master
