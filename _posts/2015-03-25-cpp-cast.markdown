@@ -1,0 +1,51 @@
+---
+layout: post
+title: "CPP Cast"
+date: 2015-03-25 14:16
+category: CPP
+tags: cpp program
+---
+{% include JB/setup %}
+
+CPP Cast
+
+------
+
+* dynamic_cast 是用来执行“安全向下转型的”，也就是说在运行期间决定某对象是否归属继承体系中的某个类型
+* static_cast 用来强迫隐式转换，在编译期间决定
+* const_cast 用来将对象的常量性移除的
+* reinterpret_cast 意图执行低级转型，实际动作取决于编译器，所以是不可移植的
+
+PS: 以下代码疑问？
+    #include<iostream>
+    #define PREFFIX "    "
+    class IInterface {
+        public:
+            virtual void transact() {
+                std::cout << PREFFIX"IInterface" << std::endl;
+            }
+    };
+
+    class BpInterface : public IInterface {
+        public:
+            int data;
+            virtual void transact() {
+                std::cout << PREFFIX"BpInterface" << std::endl;
+            }
+    };
+
+    int main() {
+        IInterface* interface = new IInterface();
+        std::cout << "1. static_cast from base to child" << std::endl;
+        BpInterface* bp = static_cast<BpInterface*>(interface);
+        bp->transact();
+        bp->data = 5;
+        std::cout << PREFFIX << bp->data << std::endl;
+    }
+
+输出：
+    1. static_cast from base to child
+        IInterface
+        5
+
+即：static_cast可以从父类对象指针赋值给子类对象指针，但调用方法时却不受virtual的影响
