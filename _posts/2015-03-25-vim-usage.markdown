@@ -1,0 +1,209 @@
+---
+layout: post
+title: "VIM Usage"
+date: 2015-03-25 14:47
+category: VIM
+tags: vim tools
+---
+{% include JB/setup %}
+
+VIM Usage
+
+------
+
+### 1. Make
+    :make - Make
+    :cl - 列出错误
+    :cn - 下一个错误
+    :cp - 上一个错误
+    :cnew - 从头开始
+
+### 2. 定位
+    [[ 上一个位于第一列的{
+    ]] 下一个位于第一列的{
+    [{跳回当前代码块起始的{
+    gd从变量的调用跳转到它的局部声明
+    { 转到上一个空行
+    } 转到下一个空行
+    gd 局部变量跳转
+    [{ 跳转到函数定义的起始括号
+    ctrl+o 跳转到上一个位置
+    ctrl+i 跳转到下一个位置
+
+### 3. 显示二进制
+    A. vim -b file
+       :%!xxd
+       :%!xxd -r #回到一般模式
+    B. :set display=uhex
+    C. hexdump -C file | less
+
+### 4. 获取某个命令的输出
+    :r !command
+
+### 5. 执行当前缓冲区的内容
+    :w !bash
+
+### 6. 以sudo保存
+    :w !sudo tee%
+
+### 7. 加密
+    vim -x file
+或者
+
+    :X
+
+解密
+
+    :set key=
+
+批量加密
+
+    #!/bin/bash
+    #Encrypt file with vim
+    if (test $# -lt 2) then
+    　 echo Usage: decrypt password filename
+    else
+    vim -e -s -c ":set key=$1" -c ':wq' $2
+    echo "$2 encrypted."
+    fi
+
+### 8. 跳到minibuffer中的序号为n的文件
+    :bn
+
+### 9. 多行相同操作
+行首操作 – 1. Ctrl-v 2.选择多行 3.I 4.输入内容 5.Esc多行生效
+
+行尾操作 – 1. Ctrl-v 2.选择多行 3.A 4.输入内容 5.Esc多行生效
+
+### 10. 比较目录A和目录B，使用下面的命令
+    diff -c -a -b -x *.bak -x *.log -r A B > AB.diff
+    vim AB.diff
+这样就可以方便的查看不同了, 参数的意义
+*-c* 采用content的format输出different
+*-a* 强制使用text的模式
+*-b* 忽略空白的不同
+*-x* 过滤掉所比较目录中一些不想比较的文件类型，可以使用其他的pattern
+*-X* excludefile 忽略在excludefile中的文件类型，每种文件占一行
+
+### 11. 用vim编辑文件时，去掉其中的^M
+    :%s/^M$//g
+^M要使用“CTRL-V CTRL-M”生成
+
+### 12. 定位
+0 → 数字零，到行头
+
+^ → 到本行第一个不是blank字符的位置（所谓blank字符就是空格，tab，换行，回车等）
+
+$ → 到本行行尾
+
+g_ → 到本行最后一个不是blank字符的位置
+
+a → 在光标后插入
+
+o → 在当前行后插入一个新行
+
+O → 在当前行前插入一个新行
+
+cw → 替换从光标所在位置后到一个单词结尾的字符，并进入插入模式
+
+### 13. 多重高亮
+    /aaa\|bbb
+
+### 14. 搜索不区分大小写
+    /\cword
+
+### 15. 在Vim中插入当前文件名
+A. 使用<c-r>（即CTRL+R）。步骤如下：
+
+在Insert模式下，先按CTRL+R，光标处变成双引号"，再按%，即可直接插入当前文件名（含路径）
+
+CTRL-R可以插入0～9号寄存器（numbered register）内的内容，也可以插入特殊寄存器（named register）里的内容。
+特殊寄存器中，只读寄存器"%包含的就是当前文件名。
+另外，vim中的复制粘贴（剪贴板操作）也是使用了特殊寄存器+的操作
+
+B. 使用expand()。其实这个也用到了<c-r>。步骤如下：
+
+在Insert模式下，先按CTRL+R，光标处变成双引号”，再按=，提示输入表达式，输入expand("%:t")，回车
+即可插入当前文件名（不含路径）。
+
+这个方法先进入<c-r>状态，然后利用"=寄存器，将表达式的值插入当前位置。基本上只要是可以返回字符串的表达式都可以用这个方法快速插入到文本中
+
+### 17. Type :ConqueTerm <command> to run your command in vim, for example:
+    :ConqueTerm bash
+    :ConqueTerm mysql -h localhost -u joe -p sock_collection
+    :ConqueTerm ipython
+
+To open ConqueTerm in a new horizontal or vertical buffer use:
+
+    :ConqueTermSplit <command>
+    :ConqueTermVSplit <command>
+    :ConqueTermTab <command>
+
+All text typed in insert mode will be sent to your shell. Use the <F9> key to send a visual selection from any buffer to the shell.
+
+For more help type :help ConqueTerm
+
+### 18. 替换删除
+g/xxx/d，删除包含xxx的行
+
+v/xxx/d，删除不含xxx的行
+
+:%s/xxx//gn，统计xxx个数，n表示只报告匹配的个数而不进行实际的替换
+
+### 19. 位置
+`<和`>表示visual模式下，选中的起始和结束位置
+
+### 20. 向上查找
+    :?patten
+
+### 21. Some tips
+1. g_: move to the last non-blank character of the current line, without newline charactor, the $ will
+
+2. :set statusline=%4l 以4个字符宽度显示当前行号，居右对齐，%-4l居左对齐，%04l用0填充空位，%.4l最大宽度
+
+General Format
+
+    %-0{minwid}.{maxwid}{item}
+    :set statusline=%= 内容右对齐
+
+3. Options as Variables
+    :set textwidth=80
+    :echo &textwidth
+can also set options as variables using the let command
+
+    :let &textwidth = 100
+    :set textwidth?
+When you use let and set it as a variable you can use the full power of Vimscript to determine the value
+
+:let &textwidth = &textwidth + 10
+:set textwidth?
+This time Vim displays textwidth=110. When you set an option using set you can only set it to a single literal value
+
+4. Registers as Variables
+:let @a = "hello!"
+:echo @a
+
+:echo @/
+Vim will echo the search pattern you just used
+
+### 22. 搜索
+1. 搜索外部文件内容：
+    :grep 使用外部的grep搜索，并使用quickfix list显示
+    :lgrep 使用内部的grep搜索，并使用location list显示
+    :vimgrep 使用内部的grep搜索，并使用quickfix list显示
+    :lvimgrep 使用内部的grep搜索，并使用location list显示
+
+2. vimgrep/lvimgrep用法如下：
+    :vimgrep /pattern/gj file
+
+其中g表示显示所有的匹配，j表示搜索后不跳转
+
+可以使用如下map定义快捷键，当按下F4时，在当前目录下搜索当前光标所在的单词，并在quickfix list中显示
+
+    map <F4> :execute "vimgrep /" . expand("<cword>") . "/gj ** <BAR> cw<CR>"
+
+### 23. 查询按键是否已经被映射
+    :verbose map <按键>
+    :verbose imap <按键>
+    :verbose nmap <按键>
+    :verbose vmap <按键>
