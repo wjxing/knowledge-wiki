@@ -17,6 +17,7 @@ CPP Cast
 * reinterpret_cast 意图执行低级转型，实际动作取决于编译器，所以是不可移植的
 
 PS: 以下代码疑问？
+
     #include<iostream>
     #define PREFFIX "    "
     class IInterface {
