@@ -27,21 +27,26 @@ B. 使用ls (hd0,X)/boot/grub （/boot没有单独分区）或者ls （hd0,X)/gr
 C. 找到正确的grub目录
 
 以下是/boot没有单独分区的命令：
+
     grub rescue>set root=(hd0,5)
     grub rescue>set prefix=(hd0,5)/boot/grub
     grub rescue>insmod /boot/grub/normal.mod
 
 以下是/boot 单独分区的命令：
+
     grub rescue>set root=(hd0,5)
     grub rescue>set prefix=(hd0,5)/grub
     grub rescue>insmod /grub/normal.mod
 
 然后调用如下命令，就可以显示出丢失的grub菜单了。
+
     grub rescue>normal
 
 启动起来，进入ubuntu之后，在终端执行：
+
     sudo update-grub
     sudo grub-install /dev/sda
+
 （sda是硬盘号码，千万不要指定分区号码，例如sda1，sda5等都不对）
 
 ### 2. screen同步
@@ -70,14 +75,18 @@ User B# screen -x debug
         Port 端口
 
 登录的时候使用如下命令：
+
     ssh server
 
 ### 6. 进程替换
 实例：
+
     bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+
 这条命令是下载rvm-installer脚本，之后执行并且传递stable参数
 
 解析：
+
     bash -s stable < <(command)
 
 <(command) : 这里表示bash下的进程替换功能，把command的执行结果存到一个中间文件中（可以使用echo <(command)查看中间文件路径）
@@ -88,6 +97,7 @@ bash -s : 这里-s参数表示bash将把标准输入的内容当作命令执行�
 
 ### 7. find过滤路径
     find . -path "./out" -prune -o -name "XXX" -print
+
 搜索XXX文件，但不包含./out目录下的
 
 ### 8. blkid - View UUID
