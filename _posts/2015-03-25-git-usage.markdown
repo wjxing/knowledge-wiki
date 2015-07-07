@@ -24,7 +24,7 @@ Git Usage
 ### 4. git diff
 查看当前文件和暂存区域的差别（也就是修改之后还没有暂存起来的变化内容）
 
-git diff --staged
+git diff --staged(或--cache)
 
 查看已经暂存起来的文件和上次提交快照之间的差异
 
@@ -130,3 +130,44 @@ git add your files
 git commit -m 'Initial commit'
 
 git push origin HEAD:refs/heads/master
+
+### 15. 提交范围
+假设有以下提交历史
+
+    A <--- B <--- E <--- F <--- master
+           \
+             <--- C <--- D <--- experiment
+
+git log master..experiment
+
+会显示所有可从experiment分支中获得而不能从master分支中获得的提交，
+也可以留空语法中的一边来让 Git 来假定它是 HEAD
+
+Git允许你在引用前使用^字符或者--not指明你不希望提交被包含其中的分支，因此下面三个命令是等同的
+
+git log refA..refB
+git log ^refA refB
+git log refB --not refA
+
+这样允许在查询中指定多于两个的引用，如果想查找所有从refA或refB包含的但是不被refC包含的提交，可以输入下面中的一个
+
+git log refA refB ^refC
+git log refA refB --not refC
+
+### 16. 三点
+这个可以指定被两个引用中的一个包含但又不被两者同时包含的分支，
+针对上面的例子，如果想查看master或者experiment中包含的但不是两者共有的引用，可以运行
+
+git log master...experiment
+F
+E
+D
+C
+
+这种情形下，log命令的一个常用参数是--left-right，它会显示每个提交到底处于哪一侧的分支
+
+git log --left-right master...experiment
+< F
+< E
+> D
+> C
