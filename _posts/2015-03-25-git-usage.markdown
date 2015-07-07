@@ -146,12 +146,15 @@ git log master..experiment
 Git允许你在引用前使用^字符或者--not指明你不希望提交被包含其中的分支，因此下面三个命令是等同的
 
 git log refA..refB
+
 git log ^refA refB
+
 git log refB --not refA
 
 这样允许在查询中指定多于两个的引用，如果想查找所有从refA或refB包含的但是不被refC包含的提交，可以输入下面中的一个
 
 git log refA refB ^refC
+
 git log refA refB --not refC
 
 ### 16. 三点
@@ -159,15 +162,23 @@ git log refA refB --not refC
 针对上面的例子，如果想查看master或者experiment中包含的但不是两者共有的引用，可以运行
 
 git log master...experiment
+
 F
+
 E
+
 D
+
 C
 
 这种情形下，log命令的一个常用参数是--left-right，它会显示每个提交到底处于哪一侧的分支
 
 git log --left-right master...experiment
+
 < F
+
 < E
+
 > D
+
 > C
