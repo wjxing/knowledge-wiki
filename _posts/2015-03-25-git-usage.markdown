@@ -255,7 +255,7 @@ Git没有提供类似于`stash unapply`的命令，但是可以通过取消该�
     $ git commit --amend
 
 如果完成提交后又想修改被提交的快照，通过修改文件然后对其运行`git add`或对一个已被记录的文件运行`git rm`，
-随后的git commit --amend会获取当前的暂存区并将它作为新提交对应的快照
+随后的`git commit --amend`会获取当前的暂存区并将它作为新提交对应的快照
 
 ### 修改多个提交说明
 依靠这个交互式的`rebase`工具，就可以停留在每一次提交后，如果想修改或改变说明、增加文件或任何其他事情。
@@ -290,7 +290,7 @@ Git没有提供类似于`stash unapply`的命令，但是可以通过取消该�
 
     $ git filter-branch --tree-filter 'rm -f passwords.txt' HEAD
 
-**--tree-filter**选项会在每次检出项目时先执行指定的命令然后重新提交结果
+`--tree-filter`选项会在每次检出项目时先执行指定的命令然后重新提交结果
 
 一个比较好的办法是在一个测试分支上做这些然后在确定产物真的是所要的之后，
 再`hard-reset`主分支。要在所有的分支上运行`filter-branch`的话，可以传递`--all`给命令
