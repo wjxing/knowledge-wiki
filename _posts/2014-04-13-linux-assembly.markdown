@@ -89,3 +89,4 @@ __asm__(assembler template
 
 [1]:https://www.ibm.com/developerworks/cn/linux/l-assembly/
 [2]:http://learn.akae.cn/media/ch19s05.html
+[3]:http://www.ethernut.de/en/documents/arm-inline-asm.html
