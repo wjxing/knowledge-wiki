@@ -20,13 +20,12 @@ This two line.
 
 ### 测试表格
 
-Header1 |    Header2 |    Header3
---------|------------|-----------
-cell1   |    cell2   |    cell3
-cell4   |    cell5   |    cell6
-cell1   |    cell2   |    cell3
-cell4   |    cell5   |    cell6
-
+|-----------------+--------------+----------------+---------------|
+| Default aligned | Left aligned | Center aligned | Right aligned |
+|-----------------|:-------------|:--------------:|--------------:|
+|cell1            |cell2         |cell3           |cell4          |
+|cell5            |cell6         |cell7           |cell8          |
+|-----------------+--------------+----------------+---------------|
 
 ### 测试列表
 
