@@ -3,7 +3,7 @@ layout: post
 title: "Compile and link 3rd libs"
 date: 2014-03-24 13:14
 category: "Linux"
-tags: Compile Link
+tags: compile link
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Install grub in udisk"
 date: 2014-04-16 11:03
 category: Linux
-tags: [linux grub]
+tags: linux grub tools
 ---
 {% include JB/setup %}
 
